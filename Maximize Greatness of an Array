@@ -1,0 +1,18 @@
+class Solution {
+    public int maximizeGreatness(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        
+        int count = 0;
+        int i = 0;
+        int j = 0;
+        while(i < n && j < n) {
+            if(nums[j] > nums[i]) {
+                count++;
+                i++;
+            }
+            j++;
+        }
+        return count;
+    }
+}
