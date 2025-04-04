@@ -1,0 +1,71 @@
+class Solution {
+    public int[][] merge(int[][] arr) {
+        int n = arr.length;
+        Arrays.sort(arr, (a, b) -> a[0] - b[0]);
+
+        List<int[]> ans = new ArrayList<>();
+        for(int i = 0; i < n; i++) {
+            if(ans.isEmpty() || arr[i][0] > ans.get(ans.size()-1)[1]) {
+                ans.add(arr[i]);
+            } else {
+                ans.get(ans.size()-1)[1] = Math.max(ans.get(ans.size()-1)[1], arr[i][1]);
+
+            }
+        }
+        return ans.toArray(new int[ans.size()][]);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int[][] merge(int[][] arr) {
+        int n = arr.length; // size of the array
+        
+        // Sort the given intervals by their start time:
+        Arrays.sort(arr, new Comparator<int[]>() {
+            public int compare(int[] a, int[] b) {
+                return a[0] - b[0];
+            }
+        });
+
+        // Use a List to store merged intervals:
+        List<int[]> ans = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) { // Select an interval:
+            int start = arr[i][0];
+            int end = arr[i][1];
+
+            // Skip all the merged intervals:
+            if (!ans.isEmpty() && end <= ans.get(ans.size() - 1)[1]) {
+                continue;
+            }
+
+            // Check the rest of the intervals:
+            for (int j = i + 1; j < n; j++) {
+                if (arr[j][0] <= end) {
+                    end = Math.max(end, arr[j][1]);
+                } else {
+                    break;
+                }
+            }
+
+            // Add the merged interval:
+            ans.add(new int[]{start, end});
+        }
+
+        // Convert the List to a 2D array:
+        return ans.toArray(new int[ans.size()][]);
+    }
+}
