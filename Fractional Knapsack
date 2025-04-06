@@ -1,0 +1,34 @@
+class Solution {
+    class Item {
+        int value;
+        int weight;
+        double ratio;
+        
+        Item(int value, int weight) {
+            this.value = value;
+            this.weight = weight;
+            this.ratio = (double) value / weight;
+        }
+    }
+    // Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(List<Integer> val, List<Integer> wt, int capacity) {
+        int n = val.size();
+        List<Item> items = new ArrayList<>();
+        for(int i = 0; i < n; i++) {
+            items.add(new Item(val.get(i), wt.get(i)));
+        }
+        Collections.sort(items, (a, b) -> Double.compare(b.ratio, a.ratio));
+        
+        double totalVal = 0.0;
+        for(Item item : items) {
+            if(capacity >= item.weight) {
+                totalVal += item.value;
+                capacity -= item.weight;
+            } else {
+                totalVal += item.ratio * capacity;
+                break;
+            }
+        }
+        return totalVal;
+    }
+}
