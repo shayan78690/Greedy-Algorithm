@@ -1,0 +1,22 @@
+class Solution {
+    public boolean checkValidString(String s) {
+        return func(s, 0, 0);
+    }
+    public boolean func(String s, int idx, int count) {
+        if(count < 0) {
+            return false;
+        }
+        if(idx == s.length()) {
+            return count == 0;
+        }
+
+        if(s.charAt(idx) == '(') {
+            return func(s, idx+1, count+1);
+        }
+        if(s.charAt(idx) == ')') {
+            return func(s, idx+1, count-1);
+        }
+
+        return func(s, idx+1, count+1) || func(s, idx+1, count) || func(s, idx+1, count-1);
+    }
+}
