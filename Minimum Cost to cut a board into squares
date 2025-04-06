@@ -1,0 +1,35 @@
+class Solution {
+    public static int minimumCostOfBreaking(int[] X, int[] Y,int M,int N) {
+        Arrays.sort(X); 
+        Arrays.sort(Y); 
+        int h = X.length - 1; 
+        int v = Y.length - 1; 
+        int hp = 1; 
+        int vp = 1; 
+        int cost = 0;
+
+        while (h >= 0 && v >= 0) {
+            if (X[h] > Y[v]) {
+                cost += X[h] * vp;
+                hp++;
+                h--;
+            } else {
+                cost += Y[v] * hp;
+                vp++;
+                v--;
+            }
+        }
+
+        while (h >= 0) {
+            cost += X[h] * vp;
+            h--;
+        }
+
+        while (v >= 0) {
+            cost += Y[v] * hp;
+            v--;
+        }
+
+        return cost;
+    }
+}
