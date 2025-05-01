@@ -1,0 +1,30 @@
+class Solution {
+    public int maxTaskAssign(int[] tasks, int[] workers, int pills, int strength) {
+        int m = workers.length;
+        int n = tasks.length;
+        boolean[] assigned = new boolean[n]; 
+        int count = 0;
+
+        for (int i = 0; i < m; i++) {
+            boolean assignedTask = false;
+            for (int j = 0; j < n; j++) {
+                if (assigned[j]) continue; 
+
+                if (workers[i] >= tasks[j]) {
+                    assigned[j] = true;
+                    count++;
+                    assignedTask = true;
+                    break;
+                } else if (pills > 0 && workers[i] + strength >= tasks[j]) {
+                    assigned[j] = true;
+                    pills--;
+                    count++;
+                    assignedTask = true;
+                    break;
+                }
+            }
+        }
+
+        return count;
+    }
+}
